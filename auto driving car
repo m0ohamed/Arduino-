@@ -1,0 +1,140 @@
+#define right 3
+#define right1 5
+#define left 6
+#define left1 9
+#define pb 2
+#define trig1 11
+#define echo1 12
+#define trig2 7
+#define echo2 8
+
+int distance1 =0,t1=0,distance2 =0,t2=0,count=0;
+void setup() {
+    Serial.begin(9600);
+  pinMode(trig1,OUTPUT);
+  pinMode(echo1,INPUT);
+  pinMode(trig2,OUTPUT);
+  pinMode(echo2,INPUT);
+  pinMode(right,OUTPUT);
+  pinMode(right1,OUTPUT);
+  pinMode(left,OUTPUT);
+  pinMode(left1,OUTPUT);
+  pinMode(pb,INPUT_PULLUP);
+}
+
+void loop() {
+   if(digitalRead(pb)==LOW)
+{
+  while(digitalRead(pb)==LOW);
+  count++;
+  if(count==2) count=0;
+  
+}
+if(count==true)
+{
+  
+  digitalWrite(trig1,LOW);
+  delayMicroseconds(5);
+  digitalWrite(trig1,HIGH);
+  delayMicroseconds(10);
+  t1=pulseIn(echo1,HIGH);
+  distance1=t1/57;
+  
+  digitalWrite(trig2,LOW);
+  delayMicroseconds(5);
+  digitalWrite(trig2,HIGH);
+  delayMicroseconds(10);
+  
+  t2=pulseIn(echo2,HIGH);
+  delayMicroseconds(5);
+  delayMicroseconds(10)
+  distance2=t2/57;
+ if (distance1<=50&&distance2<=50)
+ {
+  analogWrite(right,0);
+    analogWrite(right1,0);
+    analogWrite(left,0);
+      analogWrite(left1,0);
+      delay(3);
+        analogWrite(right,0);
+          analogWrite(right1,255);
+          
+ }
+ if(distance1<=50)
+ {
+  analogWrite(right,0);
+    analogWrite(right1,0);
+    analogWrite(left,0);
+      analogWrite(left1,0);
+      delay(3);
+        analogWrite(right,0);
+          analogWrite(right1,255);
+ }
+  
+  if(distance1<=50&&distance2<=50)
+  {
+   analogWrite(right,0);
+    analogWrite(right1,0);
+    analogWrite(left,0);
+      analogWrite(left1,0);
+      delay(3);
+        analogWrite(right,255);
+          analogWrite(right1,0);
+          
+         analogWrite(left,150);
+            analogWrite(left1,0);
+  }
+  
+ else if(distance2<=50&&distance1>50)
+  {
+   analogWrite(right,0);
+    analogWrite(right1,0);
+    analogWrite(left,0);
+      analogWrite(left1,0);
+      delay(3);
+        analogWrite(right,255);
+          analogWrite(right1,0);
+          
+         analogWrite(left,150);
+           analogWrite(left1,0);
+  }
+  else if(distance2>50&&distance1<=50)
+  {
+   analogWrite(right,0);
+    analogWrite(right1,0);
+    analogWrite(left,0);
+      analogWrite(left1,0);
+      delay(3);
+        analogWrite(left,0);
+          analogWrite(left1,255);
+          
+         analogWrite(left,150);
+            analogWrite(left1,0);
+  }
+  else if(distance1<=75||distance2<=75)
+  {
+   analogWrite(right,0);
+    analogWrite(right1,0);
+    analogWrite(left,0);
+      analogWrite(left1,0);
+      delay(3);
+        analogWrite(right,255);
+          analogWrite(right1,0);
+          
+         analogWrite(left,150);
+            analogWrite(left1,0);
+  }
+ else
+  {
+    analogWrite(left,0);
+            analogWrite(left1,255);
+      analogWrite(right,0);
+        analogWrite(right1,255);
+          
+  }
+  
+    Serial.println(distance1);
+  Serial.println(distance2);
+}
+
+  
